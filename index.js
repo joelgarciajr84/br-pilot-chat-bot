@@ -77,7 +77,7 @@ app.post('/webhook/', function (req, res) {
               message: first_question
             };
 
-            sendTextMessage(sender, JSON.stringify( messageData ));
+            sendTextMessage( sender, messageData );
         }
     }
     res.sendStatus(200);
@@ -87,7 +87,6 @@ app.post('/webhook/', function (req, res) {
 
 function sendTextMessage(sender, text) {
 
-    var messageData = { message : JSON.stringify(text) };
     request({
         url: 'https://graph.facebook.com/v2.6/me/messages',
         qs: {access_token:FB_PAGE_ACCESS_TOKEN},
