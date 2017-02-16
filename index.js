@@ -29,6 +29,38 @@ app.get('/webhook/', function (req, res) {
 });
 
 app.post('/webhook/', function (req, res) {
+
+    var first_question = {
+      "text":"Em que podemos ajudar?",
+       "quick_replies":[
+         {
+           "content_type":"text",
+           "title":"Quero Cartas",
+           "payload":"CARTAS"
+         },
+         {
+           "content_type":"text",
+           "title":"Quero NOTAM",
+           "payload":"COMPRAR"
+       },
+       {
+         "content_type":"text",
+         "title":"Quero METAR/TAF",
+         "payload":"COMPRAR"
+     },
+     {
+       "content_type":"text",
+       "title":"Quero ROTAER",
+       "payload":"COMPRAR"
+   },
+   {
+     "content_type":"text",
+     "title":"Quero NASCER/POR DO SOL",
+     "payload":"COMPRAR"
+ }
+
+       ]
+     };
     var messaging_events = req.body.entry[0].messaging;
     for (var i = 0; i < messaging_events.length; i++) {
         var event = req.body.entry[0].messaging[i];
@@ -36,7 +68,8 @@ app.post('/webhook/', function (req, res) {
         console.log(event);
         if (event.message && event.message.text) {
             var text = event.message.text;
-            sendTextMessage(sender, text.substring(0, 200));
+
+            sendTextMessage(sender, first_question);
         }
     }
     res.sendStatus(200);
