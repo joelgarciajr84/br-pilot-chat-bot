@@ -25,6 +25,40 @@ app.get('/webhook/', function (req, res) {
     res.send('Error, wrong token');
 });
 
+app.post('/webhook/', function (req, res) {
+    var messaging_events = req.body.entry[0].messaging;
+    for (var i = 0; i < messaging_events.length; i++) {
+        var event = req.body.entry[0].messaging[i];
+        var sender = event.sender.id;
+        if (event.message && event.message.text) {
+            var text = event.message.text;
+            sendTextMessage(sender, "Text received, echo: " + text.substring(0, 200));
+        }
+    }
+    res.sendStatus(200);
+});
+
+var token = "EAAQ3GcyyjAwBAMVXSYtrI5ysZA3MIxYxRMxtzTT77TiwuZCdOpCtqSULUMCJsqndWOGbxQKZCtrOTmQ6VXd7Rk92uzG45Qh7mjx96on33eBjcx8nNIn4u9ZCxqVAvCglICoAljsZCdi51lgZBjIzJZBh5r7GUlzn1QCB7BhQXjT9wZDZD";
+
+function sendTextMessage(sender, text) {
+    var messageData = { text:text };
+    request({
+        url: 'https://graph.facebook.com/v2.6/me/messages',
+        qs: {access_token:token},
+        method: 'POST',
+        json: {
+            recipient: {id:sender},
+            message: messageData,
+        }
+    }, function(error, response, body) {
+        if (error) {
+            console.log('Error sending messages: ', error);
+        } else if (response.body.error) {
+            console.log('Error: ', response.body.error);
+        }
+    });
+}
+
 // Spin up the server
 app.listen(app.get('port'), function() {
     console.log('running on port', app.get('port'));
