@@ -69,7 +69,7 @@ app.post('/webhook/', function (req, res) {
         if (event.message && event.message.text) {
             var text = event.message.text;
 
-            sendTextMessage(sender, first_question);
+            sendTextMessage(sender, JSON.stringify( first_question ));
         }
     }
     res.sendStatus(200);
@@ -78,6 +78,7 @@ app.post('/webhook/', function (req, res) {
 
 
 function sendTextMessage(sender, text) {
+
     var messageData = { text:text };
     request({
         url: 'https://graph.facebook.com/v2.6/me/messages',
