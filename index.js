@@ -17,9 +17,10 @@ app.get('/', function (req, res) {
     res.send('BRPILOT CHATBOT!');
 });
 
+var token = "EAAQ3GcyyjAwBAMVXSYtrI5ysZA3MIxYxRMxtzTT77TiwuZCdOpCtqSULUMCJsqndWOGbxQKZCtrOTmQ6VXd7Rk92uzG45Qh7mjx96on33eBjcx8nNIn4u9ZCxqVAvCglICoAljsZCdi51lgZBjIzJZBh5r7GUlzn1QCB7BhQXjT9wZDZD";
 // for Facebook verification
 app.get('/webhook/', function (req, res) {
-    if (req.query['hub.verify_token'] === 'AIRBUSA320!') {
+    if (req.query['hub.verify_token'] === 'EAAQ3GcyyjAwBAMVXSYtrI5ysZA3MIxYxRMxtzTT77TiwuZCdOpCtqSULUMCJsqndWOGbxQKZCtrOTmQ6VXd7Rk92uzG45Qh7mjx96on33eBjcx8nNIn4u9ZCxqVAvCglICoAljsZCdi51lgZBjIzJZBh5r7GUlzn1QCB7BhQXjT9wZDZD') {
         res.send(req.query['hub.challenge']);
     }
     res.send('Error, wrong token');
@@ -38,7 +39,7 @@ app.post('/webhook/', function (req, res) {
     res.sendStatus(200);
 });
 
-var token = "EAAQ3GcyyjAwBAMVXSYtrI5ysZA3MIxYxRMxtzTT77TiwuZCdOpCtqSULUMCJsqndWOGbxQKZCtrOTmQ6VXd7Rk92uzG45Qh7mjx96on33eBjcx8nNIn4u9ZCxqVAvCglICoAljsZCdi51lgZBjIzJZBh5r7GUlzn1QCB7BhQXjT9wZDZD";
+
 
 function sendTextMessage(sender, text) {
     var messageData = { text:text };
