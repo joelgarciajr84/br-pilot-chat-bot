@@ -17,10 +17,12 @@ app.get('/', function (req, res) {
     res.send('BRPILOT CHATBOT!');
 });
 
-var token = "EAAQ3GcyyjAwBAMVXSYtrI5ysZA3MIxYxRMxtzTT77TiwuZCdOpCtqSULUMCJsqndWOGbxQKZCtrOTmQ6VXd7Rk92uzG45Qh7mjx96on33eBjcx8nNIn4u9ZCxqVAvCglICoAljsZCdi51lgZBjIzJZBh5r7GUlzn1QCB7BhQXjT9wZDZD";
+var FB_PAGE_ACCESS_TOKEN = process.env.FB_PAGE_ACCESS_TOKEN;
+var FB_VERIFY_TOKEN = process.env.FB_VERIFY_TOKEN;
+
 // for Facebook verification
 app.get('/webhook/', function (req, res) {
-    if (req.query['hub.verify_token'] === 'AIRBUSA320!') {
+    if (req.query['hub.verify_token'] ===  FB_VERIFY_TOKEN ) {
         res.send(req.query['hub.challenge']);
     }
     res.send('Error, wrong token');
@@ -46,7 +48,7 @@ function sendTextMessage(sender, text) {
     var messageData = { text:text };
     request({
         url: 'https://graph.facebook.com/v2.6/me/messages',
-        qs: {access_token:token},
+        qs: {access_token:FB_PAGE_ACCESS_TOKEN},
         method: 'POST',
         json: {
             recipient: {id:sender},
