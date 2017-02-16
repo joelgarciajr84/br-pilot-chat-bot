@@ -70,7 +70,14 @@ app.post('/webhook/', function (req, res) {
 
         if (event.message && event.message.text) {
 
-            sendTextMessage(sender, JSON.stringify( first_question ));
+            var messageData = {
+              recipient: {
+                id: sender
+              },
+              message: first_question
+            };
+
+            sendTextMessage(sender, JSON.stringify( messageData ));
         }
     }
     res.sendStatus(200);
@@ -85,10 +92,7 @@ function sendTextMessage(sender, text) {
         url: 'https://graph.facebook.com/v2.6/me/messages',
         qs: {access_token:FB_PAGE_ACCESS_TOKEN},
         method: 'POST',
-        json: {
-            recipient: {id:sender},
-            message: messageData,
-        }
+        json: text
     }, function(error, response, body) {
         if (error) {
             console.log('Error sending messages: ', error);
