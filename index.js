@@ -39,35 +39,36 @@ app.post('/webhook/', function (req, res) {
            "payload":"CARTAS"
          },
          {
-           "content_type":"text",
-           "title":"Quero NOTAM",
-           "payload":"COMPRAR"
-       },
-       {
-         "content_type":"text",
-         "title":"Quero METAR/TAF",
-         "payload":"COMPRAR"
-     },
-     {
-       "content_type":"text",
-       "title":"Quero ROTAER",
-       "payload":"COMPRAR"
-   },
-   {
-     "content_type":"text",
-     "title":"Quero NASCER/POR DO SOL",
-     "payload":"COMPRAR"
- }
-
+            "content_type":"text",
+            "title":"Quero NOTAM",
+            "payload":"NOTAM"
+         },
+         {
+            "content_type":"text",
+            "title":"Quero METAR/TAF",
+            "payload":"METAR_TAF"
+         },
+         {
+            "content_type":"text",
+            "title":"Quero ROTAER",
+            "payload":"ROTAER"
+         },
+         {
+            "content_type":"text",
+            "title":"Quero NASCER/POR DO SOL",
+            "payload":"SOL"
+         }
        ]
      };
+
     var messaging_events = req.body.entry[0].messaging;
     for (var i = 0; i < messaging_events.length; i++) {
         var event = req.body.entry[0].messaging[i];
         var sender = event.sender.id;
+
         console.log(event);
+
         if (event.message && event.message.text) {
-            var text = event.message.text;
 
             sendTextMessage(sender, JSON.stringify( first_question ));
         }
@@ -79,7 +80,7 @@ app.post('/webhook/', function (req, res) {
 
 function sendTextMessage(sender, text) {
 
-    var messageData = { text:text };
+    var messageData = { message : JSON.stringify(text) };
     request({
         url: 'https://graph.facebook.com/v2.6/me/messages',
         qs: {access_token:FB_PAGE_ACCESS_TOKEN},
