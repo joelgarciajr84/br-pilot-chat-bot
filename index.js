@@ -78,7 +78,7 @@ app.post('/webhook/', function (req, res) {
               message: response
             };
 
-            switch ( messageText ) {
+            switch ( event.message.text ) {
 
               case "Quero Cartas":
                 response = "Ainda estamos em fase de testes... desculpe :(";
