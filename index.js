@@ -69,44 +69,36 @@ app.post('/webhook/', function (req, res) {
         console.log(event);
 
         if (event.message && event.message.text) {
-            var response = first_question;
-
-            var messageData = {
-              recipient: {
-                id: sender
-              },
-              message: response
-            };
 
             switch ( event.message.text ) {
 
               case "Quero Cartas":
-                response = "Ainda estamos em fase de testes... desculpe :(";
-                sendTextMessage( sender, messageData );
+                text = "Ainda estamos em fase de testes... desculpe :(";
+                sendTextMessage( sender, text );
               break;
 
               case "Quero NOTAM":
-                response = "Ainda estamos em fase de testes... desculpe :(";
-                sendTextMessage( sender, messageData );
+                text = "Ainda estamos em fase de testes... desculpe :(";
+                sendTextMessage( sender, text );
               break;
 
               case "METAR/TAF":
-                response = "Ainda estamos em fase de testes... desculpe :(";
-                sendTextMessage( sender, messageData );
+                text = "Ainda estamos em fase de testes... desculpe :(";
+                sendTextMessage( sender, text );
               break;
 
               case "Quero ROTAER":
-                response = "Ainda estamos em fase de testes... desculpe :(";
-                sendTextMessage( sender, messageData );
+                text = "Ainda estamos em fase de testes... desculpe :(";
+                sendTextMessage( sender, text );
               break;
 
               case "NASCER/POR DO SOL":
-                response = "Ainda estamos em fase de testes... desculpe :(";
-                sendTextMessage( sender, messageData );
+                text = "Ainda estamos em fase de testes... desculpe :(";
+                sendTextMessage( sender, text );
               break;
 
               default:
-                sendTextMessage( sender, messageData );
+                sendTextMessage( sender, first_question );
             }
 
 
@@ -118,12 +110,18 @@ app.post('/webhook/', function (req, res) {
 
 
 function sendTextMessage(sender, text) {
+    var messageData = {
+      recipient: {
+        id: sender
+      },
+      message: text
+    };
 
     request({
         url: 'https://graph.facebook.com/v2.6/me/messages',
         qs: {access_token:FB_PAGE_ACCESS_TOKEN},
         method: 'POST',
-        json: text
+        json: messageData
     }, function(error, response, body) {
         if (error) {
             console.log('Error sending messages: ', error);
