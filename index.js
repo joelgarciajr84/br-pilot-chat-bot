@@ -110,15 +110,15 @@ app.post('/webhook/', function (req, res) {
 
 
 function sendTextMessage(sender, text) {
-    var text_msg = {'text':text};
-    var messageData = {
-      recipient: {
-        id: sender
-      },
-      message: text_msg
-    };
     if( text === 'Ainda estamos em fase de testes... desculpe' ){
-        console.log("ENVIANDO AO USUARIO " + messageData);
+        var text_msg = {'text':text};
+        var messageData = {
+          recipient: {
+            id: sender
+          },
+          message: text_msg
+        };
+        console.log("ENVIANDO AO USUARIO TEXTO SIMPLES " +  JSON.stringify(messageData));
         request({
             url: 'https://graph.facebook.com/v2.6/me/messages',
             qs: {access_token:FB_PAGE_ACCESS_TOKEN},
@@ -132,13 +132,18 @@ function sendTextMessage(sender, text) {
             }
         });
     }else{
-
-        console.log("ENVIANDO AO USUARIO " + messageData);
+        var messageData = {
+          recipient: {
+            id: sender
+          },
+          message: text
+        };
+        console.log("ENVIANDO AO USUARIO TEXTO SIMPLES " +  JSON.stringify(messageData));
         request({
             url: 'https://graph.facebook.com/v2.6/me/messages',
             qs: {access_token:FB_PAGE_ACCESS_TOKEN},
             method: 'POST',
-            json: text
+            json: messageData
         }, function(error, response, body) {
             if (error) {
                 console.log('Error sending messages: ', error);
@@ -146,7 +151,6 @@ function sendTextMessage(sender, text) {
                 console.log('Error: ', response.body.error);
             }
         });
-
     }
 
 
