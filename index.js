@@ -73,27 +73,27 @@ app.post('/webhook/', function (req, res) {
             switch ( event.message.text ) {
 
               case "Quero Cartas":
-                text = "Ainda estamos em fase de testes... desculpe :(";
+                text = "Ainda estamos em fase de testes... desculpe";
                 sendTextMessage( sender, text );
               break;
 
               case "Quero NOTAM":
-                text = "Ainda estamos em fase de testes... desculpe :(";
+                text = "Ainda estamos em fase de testes... desculpe";
                 sendTextMessage( sender, text );
               break;
 
               case "METAR/TAF":
-                text = "Ainda estamos em fase de testes... desculpe :(";
+                text = "Ainda estamos em fase de testes... desculpe";
                 sendTextMessage( sender, text );
               break;
 
               case "Quero ROTAER":
-                text = "Ainda estamos em fase de testes... desculpe :(";
+                text = "Ainda estamos em fase de testes... desculpe";
                 sendTextMessage( sender, text );
               break;
 
               case "NASCER/POR DO SOL":
-                text = "Ainda estamos em fase de testes... desculpe :(";
+                text = "Ainda estamos em fase de testes... desculpe";
                 sendTextMessage( sender, text );
               break;
 
