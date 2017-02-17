@@ -110,26 +110,46 @@ app.post('/webhook/', function (req, res) {
 
 
 function sendTextMessage(sender, text) {
-
+    var text_msg = {'text':text};
     var messageData = {
       recipient: {
         id: sender
       },
-      message: text
+      message: text_msg
     };
-    console.log("ENVIANDO AO USUARIO " + messageData);
-    request({
-        url: 'https://graph.facebook.com/v2.6/me/messages',
-        qs: {access_token:FB_PAGE_ACCESS_TOKEN},
-        method: 'POST',
-        json: messageData
-    }, function(error, response, body) {
-        if (error) {
-            console.log('Error sending messages: ', error);
-        } else if (response.body.error) {
-            console.log('Error: ', response.body.error);
-        }
-    });
+    if( text === 'Ainda estamos em fase de testes... desculpe' ){
+        console.log("ENVIANDO AO USUARIO " + messageData);
+        request({
+            url: 'https://graph.facebook.com/v2.6/me/messages',
+            qs: {access_token:FB_PAGE_ACCESS_TOKEN},
+            method: 'POST',
+            json: messageData
+        }, function(error, response, body) {
+            if (error) {
+                console.log('Error sending messages: ', error);
+            } else if (response.body.error) {
+                console.log('Error: ', response.body.error);
+            }
+        });
+    }else{
+
+        console.log("ENVIANDO AO USUARIO " + messageData);
+        request({
+            url: 'https://graph.facebook.com/v2.6/me/messages',
+            qs: {access_token:FB_PAGE_ACCESS_TOKEN},
+            method: 'POST',
+            json: text
+        }, function(error, response, body) {
+            if (error) {
+                console.log('Error sending messages: ', error);
+            } else if (response.body.error) {
+                console.log('Error: ', response.body.error);
+            }
+        });
+
+    }
+
+
 }
 
 // Spin up the server
