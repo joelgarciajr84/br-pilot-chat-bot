@@ -110,14 +110,14 @@ app.post('/webhook/', function (req, res) {
 
 
 function sendTextMessage(sender, text) {
-    console.log(text);
+
     var messageData = {
       recipient: {
         id: sender
       },
       message: text
     };
-
+    console.log(messageData);
     request({
         url: 'https://graph.facebook.com/v2.6/me/messages',
         qs: {access_token:FB_PAGE_ACCESS_TOKEN},
