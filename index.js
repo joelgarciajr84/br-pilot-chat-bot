@@ -69,15 +69,47 @@ app.post('/webhook/', function (req, res) {
         console.log(event);
 
         if (event.message && event.message.text) {
+            var response = first_question;
 
             var messageData = {
               recipient: {
                 id: sender
               },
-              message: first_question
+              message: response
             };
 
-            sendTextMessage( sender, messageData );
+            switch ( messageText ) {
+
+              case "Quero Cartas":
+                response = "Ainda estamos em fase de testes... desculpe :(";
+                sendTextMessage( sender, messageData );
+              break;
+
+              case "Quero NOTAM":
+                response = "Ainda estamos em fase de testes... desculpe :(";
+                sendTextMessage( sender, messageData );
+              break;
+
+              case "METAR/TAF":
+                response = "Ainda estamos em fase de testes... desculpe :(";
+                sendTextMessage( sender, messageData );
+              break;
+
+              case "Quero ROTAER":
+                response = "Ainda estamos em fase de testes... desculpe :(";
+                sendTextMessage( sender, messageData );
+              break;
+
+              case "NASCER/POR DO SOL":
+                response = "Ainda estamos em fase de testes... desculpe :(";
+                sendTextMessage( sender, messageData );
+              break;
+
+              default:
+                sendTextMessage( sender, messageData );
+            }
+
+
         }
     }
     res.sendStatus(200);
